@@ -1,0 +1,22 @@
+{
+  "name": "exerptional",
+  "version": "1.0.0",
+  "description": "Exerptional",
+  "main": "exerptional.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kpalmvik/exerptional.git"
+  },
+  "author": "Kristofer Palmvik <kristofer@palmvik.se> (http://kristofer.palmvik.se)",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.18.0"
+  },
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "mocha": "^2.1.0"
+  }
+}

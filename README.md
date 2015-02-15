@@ -1,2 +1,2 @@
 # exerptional
-Exerptional
+An exerptional NPM module
