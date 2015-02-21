@@ -1,4 +1,16 @@
+define([
+    'intern!object',
+    'intern/chai!expect',
+    'intern/dojo/node!../exerptional' // Load as a NPM CommonJS module
+], function (registerSuite, expect, exerptional) {
+  registerSuite({
+          name: 'exerptional',
 
-var should = require('chai').should(),
-    exerptial = require('../exerptional'),
-    listClubs = exerptial.listClubs;
+          listClubs: function () {
+            expect(exerptional.listClubs()).to.be.an('object');
+          },
+          setup: function () {
+            expect(exerptional.setup('http://url/')).to.be.undefined;
+          }
+      });
+});
