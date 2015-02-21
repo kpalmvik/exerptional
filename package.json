@@ -13,9 +13,12 @@
   "author": "Kristofer Palmvik <kristofer@palmvik.se> (http://kristofer.palmvik.se)",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.18.0"
+    "cheerio": "^0.18.0",
+    "promise": "^6.1.0"
   },
   "devDependencies": {
+    "chai": "^2.0.0",
+    "chai-as-promised": "^4.2.0",
     "intern": "^2.2.2"
   }
 }
