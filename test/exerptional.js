@@ -6,11 +6,19 @@ define([
   registerSuite({
           name: 'exerptional',
 
-          listClubs: function () {
-            expect(exerptional.listClubs()).to.be.an('object');
-          },
-          setup: function () {
-            expect(exerptional.setup('http://url/')).to.be.undefined;
+          createClient: function () {
+            var createClient = exerptional.createClient;
+            var dummyBaseUrl = 'http://dummy.url/';
+
+            expect(
+              createClient(dummyBaseUrl),
+              'Create a client with a specified base URL as required')
+                .to.be.OK;
+
+            expect(
+              createClient,
+              'Create a client without a specified base URL should result in an error')
+                .to.throw(Error, 'A base URL must be defined!');
           }
       });
 });

@@ -2,7 +2,11 @@
  * Export
  */
 
-exports = module.exports = require('./lib/exerptional');
+var ExerptionalClient = require('./lib/client').Client;
+
+exports.createClient = function (baseUrl) {
+  return new ExerptionalClient(baseUrl);
+};
 
 /*
   Export the version
