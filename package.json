@@ -4,7 +4,7 @@
   "description": "Exerptional",
   "main": "exerptional.js",
   "scripts": {
-    "test": "make test"
+    "test": "node_modules/.bin/intern-client config=test/intern"
   },
   "repository": {
     "type": "git",
