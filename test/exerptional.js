@@ -44,11 +44,11 @@ define([
       });
 
       it('should return an array eventually', function() {
-        return client.allCenters().should.eventually.be.an.array;
+        return client.centers.all().should.eventually.be.an.array;
       });
 
       it('should have at least one center in the array', function() {
-        return client.allCenters().should.eventually.not.be.empty;
+        return client.centers.all().should.eventually.not.be.empty;
       });
     });
 });
