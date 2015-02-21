@@ -7,48 +7,61 @@ define([
 ], function (bdd, expect, chai, chaiAsPromised, exerptional) {
       var describe = bdd.describe,
           it = bdd.it,
-          beforeEach = bdd.beforeEach;
+          beforeEach = bdd.beforeEach,
+          that = bdd.that;
+
+      // Helper to console log in a Promise.then
+      var testLog = function(res) { console.log(res); };
 
       chai.use(chaiAsPromised);
       chai.should();
+      chai.expect();
 
       describe('Sanity check', function() {
         var createClient = exerptional.createClient;
 
         it('should successfully create a client', function () {
-          var dummyBaseUrl = 'http://dummy.url/';
+          var dummyBaseUrl = 'http://my.dummy.url/';
+          var clientWithDummyBaseUrl = createClient.bind(null,dummyBaseUrl);
 
-          expect(
-            createClient(dummyBaseUrl),
-            'Create a client with a specified base URL as required')
-              .to.be.OK;
+          expect(clientWithDummyBaseUrl).to.be.OK;
           }
         );
 
         it('should thrown an error for a client without a specified base URL', function () {
-            expect(
-              createClient,
-              'Create a should result in an error')
-                .to.throw(Error, 'A base URL must be defined!');
-          }
-        );
+          var clientWithoutBaseUrl = createClient.bind(null, null);
+
+            expect(clientWithoutBaseUrl).to.throw(Error, 'A base URL must be defined!');
+        });
     });
 
     describe('List centers', function() {
       var createClient = exerptional.createClient,
-          dummyUrl = 'http://dummy.url/',
-          client;
+          testBaseUrl = 'https://actic.exerp.com/actic/',
+          client = createClient(testBaseUrl);
 
-      beforeEach(function () {
-          client = createClient(dummyUrl);
+      it('should resolve eventually', function() {
+        var allCenters = client.centers.all();
+
+        return allCenters.should.eventually.resolve;
       });
 
-      it('should return an array eventually', function() {
-        return client.centers.all().should.eventually.be.an.array;
+      it('should have at least one center with id and name in the array', function() {
+        var centerArray = client.centers.all();
+
+        centerArray.should.eventually.not.be.empty;
+
+        var firstArrayItem = centerArray.then(function(res) {
+          return res.pop();
+        });
+
+        firstArrayItem.should.eventually.not.be.empty;
+
+        firstArrayItem.should.eventually.have.property('id');
+        firstArrayItem.should.eventually.have.property('name');
+
+        return firstArrayItem;
       });
 
-      it('should have at least one center in the array', function() {
-        return client.centers.all().should.eventually.not.be.empty;
-      });
     });
 });
