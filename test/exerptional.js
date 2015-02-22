@@ -10,47 +10,6 @@ define([
           beforeEach = bdd.beforeEach,
           that = bdd.that;
 
-      var testBaseConfig = {
-          actic: {
-            sweden: {
-              url: 'https://actic.exerp.com/actic/',
-              centerId: '100'
-            },
-            norway: {
-              url: 'https://actic.exerp.com/actic/',
-              centerId: '500'
-            }
-          },
-          fresh: {
-            url: 'https://fresh.exerp.com/fresh/',
-            centerId: '300'
-          },
-          virginActive: {
-            bolognaCitta: {
-              url: 'https://virginactive.exerp.com/www/',
-              centerId: '100'
-            }
-          },
-          satsElixia: {
-            norway: {
-              url: 'https://sats.exerp.com/www/',
-              centerId: '100'
-            },
-            denmark: {
-              url: 'https://sats.exerp.com/www/',
-              centerId: '300'
-            },
-            sweden: {
-              url: 'https://sats.exerp.com/www/',
-              centerId: '500'
-            },
-            finland: {
-              url: 'https://sats.exerp.com/www/',
-              centerId: '700'
-            }
-          }
-        };
-
       // Helper to console log in a Promise.then
       var testLog = function(res) { console.log(res); };
 
@@ -99,13 +58,18 @@ define([
           expect(clientWithNoBaseCenterId).to.throw(TypeError);
         });
 
+        it('should provide an object with common base configurations', function () {
+          expect(exerptional.commonBaseConfig).to.be.an.object;
+          expect(exerptional.commonBaseConfig).not.to.be.empty;
+        });
+
     });
 
     describe('List centers', function() {
-      var createClient = exerptional.createClient;
-
-          // client = createClient(testBaseConfig.actic.sweden);
-          client = createClient(testBaseConfig.actic.sweden);
+      var createClient = exerptional.createClient,
+          commonBaseConfig = exerptional.commonBaseConfig,
+          testBaseConfig = commonBaseConfig.actic.sweden,
+          client = createClient(testBaseConfig);
 
       it('should resolve eventually', function() {
         var allCenters = client.centers.all();
